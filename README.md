@@ -14,3 +14,14 @@ This project provides a minimal Next.js setup using the Vercel AI SDK and shadcn
    ```
 
 The main UI can be found on the index page and uses shadcn UI components for a simple chat interface.
+
+## Testing the chat endpoint
+
+After starting the dev server you can verify the `/api/chat` endpoint using the
+`scripts/test-chat.ts` script:
+
+```bash
+npx ts-node scripts/test-chat.ts
+```
+
+This script sends a sample message and streams the reply to standard output.
