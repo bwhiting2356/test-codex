@@ -1,4 +1,35 @@
-node_modules
-.next
-out
+# Dependency directories
+node_modules/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+package-lock.json
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+coverage/
+
+# Environment files
 .env
+.env*.local
+
+# Miscellaneous
+.vercel/
+.cache/
+.DS_Store
+*.pem
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
