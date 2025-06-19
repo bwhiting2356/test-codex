@@ -1,19 +1,14 @@
 import { openai } from '@ai-sdk/openai';
-import { StreamingTextResponse, streamText } from 'ai';
-import { createAgent } from 'agents';
+import { streamText } from 'ai';
 
 export const runtime = 'edge';
 
-const agent = createAgent({
-  system: 'You are a helpful AI assistant.'
-});
-
 export async function POST(req: Request) {
   const { messages } = await req.json();
-  const result = await streamText({
-    model: openai('gpt-4.1'),
+  const result = streamText({
+    model: openai('gpt-4o'),
+    system: 'You are a helpful AI assistant.',
     messages,
-    agent
   });
-  return new StreamingTextResponse(result.toAIStream());
+  return result.toDataStreamResponse();
 }
