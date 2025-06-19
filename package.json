@@ -13,6 +13,7 @@
     "react-dom": "latest",
     "ai": "latest",
     "agents": "latest",
+    "@ai-sdk/openai": "latest",
     "shadcn-ui": "latest"
   },
   "devDependencies": {
