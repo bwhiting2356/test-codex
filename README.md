@@ -1,6 +1,6 @@
 # AI App Scaffold
 
-This project provides a minimal Next.js setup using the Vercel AI SDK and shadcn components. Chat requests sent to `/api/chat` are handled using the Agents SDK.
+This project provides a minimal Next.js setup using the OpenAI Agents SDK together with shadcn components. Chat requests sent to `/api/chat` are handled using the Agents SDK.
 
 ## Getting Started
 

@@ -1,14 +1,34 @@
-import { openai } from '@ai-sdk/openai';
-import { streamText } from 'ai';
+import { Agent, run } from '@openai/agents';
+import { toDataStreamResponse } from 'ai';
 
 export const runtime = 'edge';
 
+const agent = new Agent({
+  name: 'assistant',
+  instructions: 'You are a helpful AI assistant.',
+  model: 'gpt-4o'
+});
+
 export async function POST(req: Request) {
   const { messages } = await req.json();
-  const result = streamText({
-    model: openai('gpt-4o'),
-    system: 'You are a helpful AI assistant.',
-    messages,
+
+  const history = messages.map((m: { role: string; content: string }) => {
+    if (m.role === 'system') {
+      return { role: 'system', content: m.content } as const;
+    }
+    if (m.role === 'assistant') {
+      return {
+        role: 'assistant',
+        status: 'completed',
+        content: [{ type: 'output_text', text: m.content }]
+      } as const;
+    }
+    return {
+      role: 'user',
+      content: [{ type: 'input_text', text: m.content }]
+    } as const;
   });
-  return result.toDataStreamResponse();
+
+  const result = await run(agent, history, { stream: true });
+  return toDataStreamResponse(result.toTextStream());
 }
