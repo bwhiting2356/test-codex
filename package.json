@@ -8,12 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ai-sdk/openai": "latest",
+    "@openai/agents": "^0.0.9",
+    "agents": "latest",
+    "ai": "latest",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "ai": "latest",
-    "agents": "latest",
-    "@ai-sdk/openai": "latest",
     "shadcn-ui": "latest"
   },
   "devDependencies": {
