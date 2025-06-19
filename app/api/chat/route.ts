@@ -11,7 +11,7 @@ const agent = createAgent({
 export async function POST(req: Request) {
   const { messages } = await req.json();
   const result = await streamText({
-    model: openai('gpt-3.5-turbo'),
+    model: openai('gpt-4.1'),
     messages,
     agent
   });
