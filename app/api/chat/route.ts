@@ -1,14 +1,9 @@
-import { Agent, run, type AgentInputItem } from '@openai/agents';
+import { run, type AgentInputItem } from '@openai/agents';
+import { agent } from './agent';
 import { createDataStreamResponse, formatDataStreamPart } from 'ai';
 import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';
-
-const agent = new Agent({
-  name: 'assistant',
-  instructions: 'You are a helpful AI assistant.',
-  model: 'gpt-4o'
-});
 
 export async function POST(req: Request) {
   try {
