@@ -1,3 +1,4 @@
+import '../../../lib/polyfills';
 import { run, type AgentInputItem } from '@openai/agents';
 import { agent } from './agent';
 import { createDataStreamResponse, formatDataStreamPart } from 'ai';

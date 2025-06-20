@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
     "build": "next build",
     "start": "next start",
     "evals": "node scripts/run-evals.js"
@@ -21,6 +21,7 @@
   "devDependencies": {
     "typescript": "^5.0.0",
     "@types/react": "latest",
-    "@types/node": "latest"
+    "@types/node": "latest",
+    "tsx": "latest"
   }
 }

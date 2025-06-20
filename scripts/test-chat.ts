@@ -1,3 +1,4 @@
+import '../lib/polyfills';
 import { Readable } from 'node:stream';
 
 async function main() {
