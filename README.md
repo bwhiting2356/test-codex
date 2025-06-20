@@ -32,13 +32,9 @@ Run all available evals with the helper script:
 ```bash
 npm run evals
 ```
-If your environment sets a proxy (for example `http_proxy` or `npm_config_http_proxy`),
-`npm` may warn about an unknown `http-proxy` config. Run the evals with a lower
-log level to hide these warnings:
-
-```bash
-npm --loglevel error run evals
-```
+This repository includes an `.npmrc` file that sets `loglevel=error`, so any
+warnings from `npm` (including the common `http-proxy` warning) are hidden by
+default when running scripts.
 
 You can also run a single eval for quicker feedback:
 
