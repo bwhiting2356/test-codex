@@ -1,5 +1,5 @@
 import { Agent, run } from '@openai/agents';
-import { toDataStreamResponse } from 'ai';
+import { createDataStreamResponse, formatDataStreamPart } from 'ai';
 
 export const runtime = 'edge';
 
@@ -30,5 +30,11 @@ export async function POST(req: Request) {
   });
 
   const result = await run(agent, history, { stream: true });
-  return toDataStreamResponse(result.toTextStream());
+  return createDataStreamResponse({
+    async execute(writer) {
+      for await (const chunk of result.toTextStream()) {
+        writer.write(formatDataStreamPart('text', chunk));
+      }
+    }
+  });
 }
