@@ -3,8 +3,6 @@ import { agent } from './agent';
 import { createDataStreamResponse, formatDataStreamPart } from 'ai';
 import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
@@ -16,43 +14,40 @@ export async function POST(req: Request) {
       );
     }
 
-    const history: AgentInputItem[] = messages.map((m: { role: string; content: string }) => {
-      if (m.role === 'system') {
-        return { role: 'system', content: m.content } as const;
-      }
-      if (m.role === 'assistant') {
-        return {
-          role: 'assistant',
-          status: 'completed',
-          content: [{ type: 'output_text', text: m.content }]
-        } as const;
-      }
-      return {
-        role: 'user',
-        content: [{ type: 'input_text', text: m.content }]
-      } as const;
-    });
+    const lastUserMessage = messages
+      .filter((m: { role: string; content: string }) => m.role === 'user')
+      .pop();
 
-    const result = await run(agent, history, { stream: true });
+    if (!lastUserMessage) {
+      return NextResponse.json(
+        { error: 'No user message found' },
+        { status: 400 }
+      );
+    }
+
+    return await handleAgentResponse(lastUserMessage.content);
+
+  } catch (err) {
+    console.error('Chat error:', err);
+    return NextResponse.json(
+      { error: 'An unexpected error occurred.' },
+      { status: 500 }
+    );
+  }
+}
+
+async function handleAgentResponse(message: string) {
+  try {
+    // Try streaming first
+    const result = await run(agent, message, { stream: true });
     const textStream = result.toTextStream();
     const iterator = textStream[Symbol.asyncIterator]();
 
-    let firstChunk: string;
-    try {
-      const { value, done } = await iterator.next();
-      if (done || value === undefined) {
-        return NextResponse.json(
-          { error: 'Empty response from agent' },
-          { status: 500 }
-        );
-      }
-      firstChunk = value;
-    } catch (err) {
-      console.error('Chat error before streaming:', err);
-      return NextResponse.json(
-        { error: 'An unexpected error occurred.' },
-        { status: 500 }
-      );
+    const { value: firstChunk, done } = await iterator.next();
+    
+    if (done || !firstChunk) {
+      // Fallback to non-streaming
+      return await handleNonStreamingResponse(message);
     }
 
     return createDataStreamResponse({
@@ -71,11 +66,30 @@ export async function POST(req: Request) {
         return 'An unexpected error occurred.';
       }
     });
+
   } catch (err) {
-    console.error('Chat error:', err);
+    console.error('Streaming failed, falling back:', err);
+    return await handleNonStreamingResponse(message);
+  }
+}
+
+async function handleNonStreamingResponse(message: string) {
+  const result = await run(agent, message);
+  const output = result.finalOutput;
+  
+  if (!output) {
     return NextResponse.json(
-      { error: 'An unexpected error occurred.' },
+      { error: 'Empty response from agent' },
       { status: 500 }
     );
   }
+
+  return createDataStreamResponse({
+    async execute(writer) {
+      writer.write(formatDataStreamPart('text', output));
+    },
+    onError() {
+      return 'An unexpected error occurred.';
+    }
+  });
 }
