@@ -14,17 +14,7 @@ This project provides a minimal Next.js setup using the OpenAI Agents SDK togeth
    ```
 
 The main UI can be found on the index page and uses shadcn UI components for a simple chat interface.
-
-## Testing the chat endpoint
-
-After starting the dev server you can verify the `/api/chat` endpoint using the
-`scripts/test-chat.ts` script:
-
-```bash
-npx tsx scripts/test-chat.ts
-```
-
-This script sends a sample message and streams the reply to standard output.
+Use the provided eval scripts to test the agent's responses directly, bypassing the endpoint.
 
 ## Evaluations
 
