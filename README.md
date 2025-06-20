@@ -21,7 +21,7 @@ After starting the dev server you can verify the `/api/chat` endpoint using the
 `scripts/test-chat.ts` script:
 
 ```bash
-npx ts-node scripts/test-chat.ts
+npx tsx scripts/test-chat.ts
 ```
 
 This script sends a sample message and streams the reply to standard output.
@@ -46,7 +46,7 @@ npm run evals
 You can also run a single eval for quicker feedback:
 
 ```bash
-npx ts-node --esm scripts/evals/respond-hi.ts
+npx tsx scripts/evals/respond-hi.ts
 ```
 
 When tracing is enabled the script prints a trace ID that can be inspected in
