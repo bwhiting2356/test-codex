@@ -21,6 +21,8 @@
   "devDependencies": {
     "typescript": "^5.0.0",
     "@types/react": "latest",
-    "@types/node": "latest"
+    "@types/node": "latest",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3"
   }
 }

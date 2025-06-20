@@ -13,7 +13,7 @@ This repository is a minimal Next.js chat app that communicates with the OpenAI 
 - **Keep commits focused.** Describe the change in the commit message and avoid mixing unrelated modifications.
 - **Run programmatic checks** before committing:
   - `npm run build` to ensure the Next.js project compiles.
-  - `npx ts-node scripts/test-chat.ts` to verify the chat endpoint.
+  - `npx tsx scripts/test-chat.ts` to verify the chat endpoint.
 - If these commands fail in the Codex environment due to missing dependencies or network restrictions, include the standard disclaimer about environment limitations in the PR description.
 - Update documentation if you add or change any scripts or commands referenced in `README.md`.
 - Use modern TypeScript and React patterns. Prefer functional components and hooks.
