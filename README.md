@@ -51,3 +51,6 @@ npx tsx scripts/evals/respond-hi.ts
 
 When tracing is enabled the script prints a trace ID that can be inspected in
 the Agents tracing UI for deeper debugging.
+
+All pull requests automatically run `npm run evals` using the provided GitHub
+Actions workflow.
