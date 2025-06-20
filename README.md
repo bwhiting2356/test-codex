@@ -33,6 +33,9 @@ Run all available evals with the helper script:
 ```bash
 npm run evals
 ```
+This repository includes an `.npmrc` file that sets `loglevel=error`, so any
+warnings from `npm` (including the common `http-proxy` warning) are hidden by
+default when running scripts.
 
 You can also run a single eval for quicker feedback:
 
