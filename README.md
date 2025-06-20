@@ -1,6 +1,7 @@
 # AI App Scaffold
 
 This project provides a minimal Next.js setup using the OpenAI Agents SDK together with shadcn components. Chat requests sent to `/api/chat` are handled using the Agents SDK.
+The main assistant can delegate work to dedicated sub‑agents. An **orders** agent exposes a `get_orders` tool for returning recent orders, and a **billing** agent answers invoice questions.
 
 ## Getting Started
 
@@ -37,6 +38,8 @@ You can also run a single eval for quicker feedback:
 
 ```bash
 npx tsx scripts/evals/respond-hi.ts
+# or test the orders agent
+npx tsx scripts/evals/get-orders.ts
 ```
 
 When tracing is enabled the script prints a trace ID that can be inspected in
