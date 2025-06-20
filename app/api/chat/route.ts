@@ -39,11 +39,41 @@ export async function POST(req: Request) {
     });
 
     const result = await run(agent, history, { stream: true });
+    const textStream = result.toTextStream();
+    const iterator = textStream[Symbol.asyncIterator]();
+
+    let firstChunk: string;
+    try {
+      const { value, done } = await iterator.next();
+      if (done || value === undefined) {
+        return NextResponse.json(
+          { error: 'Empty response from agent' },
+          { status: 500 }
+        );
+      }
+      firstChunk = value;
+    } catch (err) {
+      console.error('Chat error before streaming:', err);
+      return NextResponse.json(
+        { error: 'An unexpected error occurred.' },
+        { status: 500 }
+      );
+    }
+
     return createDataStreamResponse({
       async execute(writer) {
-        for await (const chunk of result.toTextStream()) {
-          writer.write(formatDataStreamPart('text', chunk));
+        try {
+          writer.write(formatDataStreamPart('text', firstChunk));
+          for await (const chunk of { [Symbol.asyncIterator]: () => iterator }) {
+            writer.write(formatDataStreamPart('text', chunk));
+          }
+        } catch (err) {
+          writer.write(formatDataStreamPart('error', 'An unexpected error occurred.'));
+          console.error('Streaming error:', err);
         }
+      },
+      onError() {
+        return 'An unexpected error occurred.';
       }
     });
   } catch (err) {
