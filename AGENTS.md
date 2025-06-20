@@ -7,6 +7,7 @@ This repository is a minimal Next.js chat app that communicates with the OpenAI 
 - The app uses TypeScript with React components located under `app` and `components`.
 - The chat endpoint is implemented in `app/api/chat/route.ts` and uses `@openai/agents` to handle requests.
 - A script at `scripts/test-chat.ts` streams a sample request to `/api/chat` for quick verification.
+- Start the dev server with `npm run dev` before running the chat test.
 - Evaluation scripts live under `scripts/evals` and can all be executed with `npm run evals`.
 - Run `npm install` to ensure all dev dependencies like `tsx` are available.
 - NPM warnings are silenced via `.npmrc` which sets `loglevel=error`.
