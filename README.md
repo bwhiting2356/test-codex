@@ -25,3 +25,29 @@ npx ts-node scripts/test-chat.ts
 ```
 
 This script sends a sample message and streams the reply to standard output.
+
+## Evaluations
+
+Evals provide a quick way to verify expected behaviour and encourage a
+test‑driven workflow. Each evaluation script lives under `scripts/evals` and
+uses the TypeScript Agents SDK to run the agent directly.
+
+- Keep evals focused on a single behaviour.
+- Assert against `result.finalOutput` from `run()` or employ the `llmj` helper
+  to let another model judge the response.
+- Enable tracing with `AGENTS_TRACE=1` to debug failures.
+
+Run all available evals with the helper script:
+
+```bash
+npm run evals
+```
+
+You can also run a single eval for quicker feedback:
+
+```bash
+npx ts-node --esm scripts/evals/respond-hi.ts
+```
+
+When tracing is enabled the script prints a trace ID that can be inspected in
+the Agents tracing UI for deeper debugging.
