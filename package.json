@@ -13,16 +13,17 @@
     "@openai/agents": "^0.0.9",
     "agents": "latest",
     "ai": "latest",
+    "dotenv": "^16.5.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
     "shadcn-ui": "latest"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/react": "latest",
     "@types/node": "latest",
+    "@types/react": "latest",
     "ts-node": "^10.9.2",
-    "tsx": "^4.20.3"
+    "tsx": "^4.20.3",
+    "typescript": "^5.0.0"
   }
 }

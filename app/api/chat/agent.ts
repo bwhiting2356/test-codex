@@ -15,10 +15,9 @@ const getOrdersTool = tool({
 // Orders agent providing order information
 export const ordersAgent = new Agent({
   name: 'orders',
-  instructions: 'You manage user orders.',
+  instructions: 'You help users with their orders. When asked about orders, use the get_orders tool to retrieve order information and then present it in a friendly, helpful way. Always explain what you found and be conversational.',
   handoffDescription: 'Handles order related queries',
   tools: [getOrdersTool],
-  toolUseBehavior: 'stop_on_first_tool',
   model: 'gpt-4o'
 });
 

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { readdir } from 'fs/promises';
 import { join } from 'path';
 import { spawnSync } from 'child_process';
