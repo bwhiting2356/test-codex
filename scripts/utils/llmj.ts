@@ -8,7 +8,7 @@ import { z } from 'zod';
  */
 export async function llmj(expected: string, actual: string): Promise<boolean> {
   const { object } = await generateObject({
-    model: openai('gpt-3.5-turbo'),
+    model: openai('o4-mini'),
     schema: z.object({ pass: z.boolean() }),
     prompt:
       `Does the following response meet the expectation?\n` +
