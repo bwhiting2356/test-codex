@@ -9,7 +9,7 @@ async function main() {
   let failed = false;
   for (const file of evals) {
     console.log(`Running ${file}...`);
-    const result = spawnSync('npx', ['ts-node', '--esm', join(dir, file)], {
+    const result = spawnSync('npx', ['tsx', join(dir, file)], {
       stdio: 'inherit'
     });
     if (result.status !== 0) {
